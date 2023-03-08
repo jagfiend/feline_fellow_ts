@@ -1,4 +1,5 @@
 import Game from "./game"
+
 export default class Player {
     public game: Game
     public x: number

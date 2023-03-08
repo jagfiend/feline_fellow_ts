@@ -1,18 +1,18 @@
 import Player from "./player";
 
 export default class Game {
-    public height: number;
     public width: number;
+    public height: number;
     public player: Player
 
-    constructor(height: number, width: number) {
-        this.height = height
+    constructor(width: number, height: number) {
         this.width = width
+        this.height = height
         this.player = new Player(this)
     }
 
     update () {
-
+        this.player.update()
     }
 
     draw(context: CanvasRenderingContext2D) {
