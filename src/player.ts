@@ -1,6 +1,7 @@
 import Game from "./game"
 import {PlayerIdle, PlayerRunLeft, PlayerRunRight, PlayerStates} from "./player-states";
 import Settings from "./settings";
+import {KeyInput} from "./input";
 
 export default class Player {
     public game: Game
@@ -16,12 +17,15 @@ export default class Player {
     public maxFrames: number
     public frameTimer:number
     public frameInterval: number
+    public velX: number
+    public maxSpeed: number
 
-    constructor(game: Game) {
+    constructor(game: Game)
+    {
         this.game = game
-        this.image = document.getElementById('player')
-        this.width = 82
-        this.height = 122
+        this.image = document.getElementById('player') // @todo fix mouth pixel
+        this.width = 11 * 8
+        this.height = 16 * 8
         this.x = 0
         this.y = this.game.height - this.height
         this.states = [
@@ -35,14 +39,19 @@ export default class Player {
         this.maxFrames = 23
         this.frameTimer = 0
         this.frameInterval = 1000 / Settings.FPS_LIMIT
+        this.velX = 0
+        this.maxSpeed = 10
     }
 
-    update(input: string, deltaTime: number) {
+    update(input: string, deltaTime: number)
+    {
         this.updateFrames(deltaTime)
         this.currentState.handleInput(input)
+        this.updateHorizontalMovement(input)
+        this.updateVerticalMovement(input)
     }
 
-    draw(context: CanvasRenderingContext2D)
+    draw(context: CanvasRenderingContext2D): void
     {
         context.drawImage(
             this.image,
@@ -78,5 +87,39 @@ export default class Player {
         }
 
         this.frameX = 0
+    }
+
+    updateHorizontalMovement(input: string): void
+    {
+        // @todo: keep in bounds
+        if (
+            input === KeyInput.PRESS_RIGHT &&
+            this.velX <= this.maxSpeed
+        ) {
+            this.velX += 1
+        }
+
+        else if (input === KeyInput.RELEASE_RIGHT) {
+            this.velX = 0
+        }
+
+        else if (
+            input === KeyInput.PRESS_LEFT &&
+            this.x >= 100 &&
+            this.velX >= -10
+        ) {
+            this.velX -= 1
+        }
+
+        else if (input === KeyInput.RELEASE_LEFT) {
+            this.velX = 0
+       }
+
+        this.x += this.velX
+    }
+
+    updateVerticalMovement(input: string): void
+    {
+        // @todo: add jumping and falling
     }
 }
