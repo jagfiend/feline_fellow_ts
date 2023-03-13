@@ -25,7 +25,7 @@ export class InputHandler {
                 case "ArrowLeft":
                     this.lastKey = KeyInput.RELEASE_LEFT;
                     break
-                case "ArrowLeft":
+                case "ArrowRight":
                     this.lastKey = KeyInput.RELEASE_RIGHT;
                     break
             }

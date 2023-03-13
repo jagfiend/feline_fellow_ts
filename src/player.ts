@@ -20,8 +20,8 @@ export default class Player {
     constructor(game: Game) {
         this.game = game
         this.image = document.getElementById('player')
-        this.width = 72
-        this.height = 112
+        this.width = 82
+        this.height = 122
         this.x = 0
         this.y = this.game.height - this.height
         this.states = [
@@ -47,7 +47,7 @@ export default class Player {
         context.drawImage(
             this.image,
             this.width * this.frameX,
-            0,
+            this.height * this.frameY,
             this.width,
             this.height,
             this.x,

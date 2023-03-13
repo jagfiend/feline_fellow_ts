@@ -24,13 +24,14 @@ export class PlayerIdle implements State {
     }
 
     handleInput(input: string): void {
-        switch (input) {
-            case KeyInput.PRESS_RIGHT:
-                this.player.setState(PlayerStates.RUN_RIGHT)
-                break
-            case KeyInput.PRESS_LEFT:
-                this.player.setState(PlayerStates.RUN_LEFT)
-                break
+        if (input === KeyInput.PRESS_RIGHT) {
+            this.player.setState(PlayerStates.RUN_RIGHT)
+            return
+        }
+
+        if (input === KeyInput.PRESS_LEFT) {
+            this.player.setState(PlayerStates.RUN_LEFT)
+            return;
         }
     }
 }
@@ -47,17 +48,18 @@ export class PlayerRunRight implements State {
     enter(): void {
         this.player.frameX = 0
         this.player.frameY = 1
-        this.player.maxFrames = 1
+        this.player.maxFrames = 5
     }
 
     handleInput(input: string): void {
-        switch (input) {
-            case KeyInput.RELEASE_RIGHT:
-                this.player.setState(PlayerStates.IDLE)
-                break
-            case KeyInput.PRESS_LEFT:
-                this.player.setState(PlayerStates.RUN_LEFT)
-                break
+        if (input === KeyInput.RELEASE_RIGHT) {
+            this.player.setState(PlayerStates.IDLE)
+            return
+        }
+
+        if (input === KeyInput.PRESS_LEFT) {
+            this.player.setState(PlayerStates.RUN_LEFT)
+            return
         }
     }
 }
@@ -74,17 +76,18 @@ export class PlayerRunLeft implements State {
     enter(): void {
         this.player.frameX = 0
         this.player.frameY = 2
-        this.player.maxFrames = 1
+        this.player.maxFrames = 5
     }
 
     handleInput(input: string): void {
-        switch (input) {
-            case KeyInput.RELEASE_LEFT:
-                this.player.setState(PlayerStates.IDLE)
-                break
-            case KeyInput.PRESS_RIGHT:
-                this.player.setState(PlayerStates.RUN_RIGHT)
-                break
+        if (input === KeyInput.RELEASE_LEFT) {
+            this.player.setState(PlayerStates.IDLE)
+            return
+        }
+
+        if (input === KeyInput.PRESS_RIGHT) {
+            this.player.setState(PlayerStates.RUN_RIGHT)
+            return
         }
     }
 }

@@ -1,4 +1,4 @@
-# Game sketch for my son
+# Game sketch
 
 To get started, clone this repo and run:
 
