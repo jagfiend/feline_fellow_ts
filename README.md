@@ -1,4 +1,4 @@
-# Canvas + Vite Starter Project
+# Game sketch for my son
 
 To get started, clone this repo and run:
 
