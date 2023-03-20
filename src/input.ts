@@ -1,33 +1,32 @@
 export enum KeyInput {
-    PRESS_LEFT = "PRESS left",
-    PRESS_RIGHT = "PRESS right",
-    RELEASE_LEFT = "RELEASE left",
-    RELEASE_RIGHT = "RELEASE right",
+    ARROW_UP ='ArrowUp',
+    ARROW_DOWN = 'ArrowDown',
+    ARROW_LEFT = 'ArrowLeft',
+    ARROW_RIGHT = 'ArrowRight',
+    SPACE = 'Space',
 }
 
 export class InputHandler {
-    public lastKey: string
+    private readonly controls: string[];
+    public keysPressed: string[];
 
     constructor() {
-        this.lastKey = ''
-        window.addEventListener('keydown', event => {
-            switch (event.key) {
-                case "ArrowLeft":
-                    this.lastKey = KeyInput.PRESS_LEFT;
-                    break
-                case "ArrowRight":
-                    this.lastKey = KeyInput.PRESS_RIGHT;
-                    break
+        this.controls = [
+            KeyInput.ARROW_UP,
+            KeyInput.ARROW_DOWN,
+            KeyInput.ARROW_LEFT,
+            KeyInput.ARROW_RIGHT,
+            KeyInput.SPACE,
+        ]
+        this.keysPressed = []
+        window.addEventListener('keydown', e => {
+            if (this.controls.includes(e.code) && !this.keysPressed.includes(e.code)) {
+                this.keysPressed.push(e.code);
             }
         })
-        window.addEventListener('keyup', event => {
-            switch (event.key) {
-                case "ArrowLeft":
-                    this.lastKey = KeyInput.RELEASE_LEFT;
-                    break
-                case "ArrowRight":
-                    this.lastKey = KeyInput.RELEASE_RIGHT;
-                    break
+        window.addEventListener('keyup', e => {
+            if (this.controls.includes(e.code)) {
+                this.keysPressed.splice(this.keysPressed.indexOf(e.code), 1)
             }
         })
     }

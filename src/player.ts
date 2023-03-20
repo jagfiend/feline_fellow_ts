@@ -18,7 +18,10 @@ export default class Player {
     public frameTimer:number
     public frameInterval: number
     public velX: number
-    public maxSpeed: number
+    public maxVelX: number
+    public velY: number
+    public maxVelY: number
+    public weight: number
 
     constructor(game: Game)
     {
@@ -40,10 +43,13 @@ export default class Player {
         this.frameTimer = 0
         this.frameInterval = 1000 / Settings.FPS_LIMIT
         this.velX = 0
-        this.maxSpeed = 10
+        this.maxVelX = 10
+        this.velY = 0
+        this.maxVelY = 30
+        this.weight = 1
     }
 
-    update(input: string, deltaTime: number)
+    update(input: string[], deltaTime: number)
     {
         this.updateFrames(deltaTime)
         this.currentState.handleInput(input)
@@ -89,37 +95,42 @@ export default class Player {
         this.frameX = 0
     }
 
-    updateHorizontalMovement(input: string): void
+    updateHorizontalMovement(input: string[]): void
     {
-        // @todo: keep in bounds
-        if (
-            input === KeyInput.PRESS_RIGHT &&
-            this.velX <= this.maxSpeed
-        ) {
-            this.velX += 1
+        if (input.includes(KeyInput.ARROW_RIGHT) && this.velX < this.maxVelX) {
+            this.velX += 4;
+        } else if (input.includes(KeyInput.ARROW_LEFT) && this.velX > -this.maxVelX) {
+            this.velX -= 4;
+        } else {
+            this.velX = 0;
         }
 
-        else if (input === KeyInput.RELEASE_RIGHT) {
-            this.velX = 0
+        this.x += this.velX;
+
+        if (this.x < 0) {
+            this.x = 0
+        } else if (this.x > this.game.width - this.width) {
+            this.x = this.game.width - this.width
         }
-
-        else if (
-            input === KeyInput.PRESS_LEFT &&
-            this.x >= 100 &&
-            this.velX >= -10
-        ) {
-            this.velX -= 1
-        }
-
-        else if (input === KeyInput.RELEASE_LEFT) {
-            this.velX = 0
-       }
-
-        this.x += this.velX
     }
 
-    updateVerticalMovement(input: string): void
+    updateVerticalMovement(input: string[]): void
     {
-        // @todo: add jumping and falling
+        if (input.includes(KeyInput.ARROW_UP) && this.isOnGround()) {
+            this.velY -= this.maxVelY
+        }
+
+        this.y += this.velY;
+
+        if (!this.isOnGround()) {
+            this.velY += this.weight
+        } else {
+            this.velY = 0
+        }
+    }
+
+    isOnGround(): boolean
+    {
+        return this.y >= this.game.height - this.height;
     }
 }

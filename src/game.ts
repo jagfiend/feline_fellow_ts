@@ -15,7 +15,7 @@ export default class Game {
     }
 
     update (deltaTime: number) {
-        this.player.update(this.input.lastKey, deltaTime)
+        this.player.update(this.input.keysPressed, deltaTime)
     }
 
     draw(context: CanvasRenderingContext2D) {

@@ -3,9 +3,9 @@ import State from "./state";
 import {KeyInput} from "./input";
 
 export enum PlayerStates {
-    IDLE = 0,
-    RUN_RIGHT = 1,
-    RUN_LEFT = 2,
+    IDLE,
+    RUN_RIGHT,
+    RUN_LEFT ,
 }
 
 export class PlayerIdle implements State {
@@ -23,13 +23,13 @@ export class PlayerIdle implements State {
         this.player.maxFrames = 23
     }
 
-    handleInput(input: string): void {
-        if (input === KeyInput.PRESS_RIGHT) {
+    handleInput(input: string[]): void {
+        if (input.includes(KeyInput.ARROW_RIGHT)) {
             this.player.setState(PlayerStates.RUN_RIGHT)
             return
         }
 
-        if (input === KeyInput.PRESS_LEFT) {
+        if (input.includes(KeyInput.ARROW_LEFT)) {
             this.player.setState(PlayerStates.RUN_LEFT)
             return;
         }
@@ -51,15 +51,15 @@ export class PlayerRunRight implements State {
         this.player.maxFrames = 5
     }
 
-    handleInput(input: string): void {
-        if (input === KeyInput.RELEASE_RIGHT) {
-            this.player.setState(PlayerStates.IDLE)
+    handleInput(input: string[]): void {
+        if (input.includes(KeyInput.ARROW_LEFT)) {
+            this.player.setState(PlayerStates.RUN_LEFT)
             return
         }
 
-        if (input === KeyInput.PRESS_LEFT) {
-            this.player.setState(PlayerStates.RUN_LEFT)
-            return
+        if (input.length === 0) {
+            this.player.setState(PlayerStates.IDLE);
+            return;
         }
     }
 }
@@ -79,15 +79,15 @@ export class PlayerRunLeft implements State {
         this.player.maxFrames = 5
     }
 
-    handleInput(input: string): void {
-        if (input === KeyInput.RELEASE_LEFT) {
-            this.player.setState(PlayerStates.IDLE)
+    handleInput(input: string[]): void {
+        if (input.includes(KeyInput.ARROW_RIGHT)) {
+            this.player.setState(PlayerStates.RUN_RIGHT)
             return
         }
 
-        if (input === KeyInput.PRESS_RIGHT) {
-            this.player.setState(PlayerStates.RUN_RIGHT)
-            return
+        if (input.length === 0) {
+            this.player.setState(PlayerStates.IDLE);
+            return;
         }
     }
 }
