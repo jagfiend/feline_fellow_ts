@@ -8,7 +8,7 @@ export enum KeyInput {
 
 export class InputHandler {
     private readonly controls: string[];
-    public keysPressed: string[];
+    readonly keysPressed: string[];
 
     constructor() {
         this.controls = [

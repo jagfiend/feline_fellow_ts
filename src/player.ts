@@ -2,26 +2,27 @@ import Game from "./game"
 import {PlayerIdle, PlayerRunLeft, PlayerRunRight, PlayerStates} from "./player-states";
 import Settings from "./settings";
 import {KeyInput} from "./input";
+import State from "./state";
 
 export default class Player {
-    public game: Game
-    public image: any
-    public width: number
-    public height: number
-    public x: number
-    public y: number
-    public states: any[]
-    public currentState: PlayerIdle | PlayerRunRight | PlayerRunLeft
+    private readonly game: Game
+    private readonly image: HTMLElement | null
+    private readonly width: number
+    private readonly height: number
+    private x: number
+    private y: number
+    private readonly states: State[]
+    private currentState: State
     public frameX: number
     public frameY: number
     public maxFrames: number
     public frameTimer:number
-    public frameInterval: number
-    public velX: number
-    public maxVelX: number
-    public velY: number
-    public maxVelY: number
-    public weight: number
+    private readonly frameInterval: number
+    private velX: number
+    private readonly maxVelX: number
+    private velY: number
+    private readonly maxVelY: number
+    private readonly weight: number
 
     constructor(game: Game)
     {
@@ -60,6 +61,7 @@ export default class Player {
     draw(context: CanvasRenderingContext2D): void
     {
         context.drawImage(
+            // @ts-ignore
             this.image,
             this.width * this.frameX,
             this.height * this.frameY,

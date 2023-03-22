@@ -2,10 +2,10 @@ import Player from "./player";
 import {InputHandler} from "./input";
 
 export default class Game {
-    public width: number;
-    public height: number;
-    public input: InputHandler
-    public player: Player
+    readonly width: number;
+    readonly height: number;
+    readonly input: InputHandler
+    readonly player: Player
 
     constructor(width: number, height: number) {
         this.width = width

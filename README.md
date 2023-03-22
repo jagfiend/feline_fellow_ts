@@ -8,10 +8,9 @@ The project should then being running on http://localhost:5173/
 
 ### TODO
 
-- restrictive access modifiers
-- generics
 - ninjas
-- collisions, attacks
-- points, health, deaths
+- attacks and collisions
+- points, font, basic ui
+- health, deaths, game states
 - menu and high scores
-- backgrounds, ground, platforms
+- ground and backgrounds

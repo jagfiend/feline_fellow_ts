@@ -9,11 +9,9 @@ export enum PlayerStates {
 }
 
 export class PlayerIdle implements State {
-    public state: PlayerStates
-    public player: Player
+    private player: Player
 
     constructor(player: Player) {
-        this.state = PlayerStates.IDLE
         this.player = player
     }
 
@@ -37,11 +35,9 @@ export class PlayerIdle implements State {
 }
 
 export class PlayerRunRight implements State {
-    public state: PlayerStates
-    public player: Player
+    private player: Player
 
     constructor(player: Player) {
-        this.state = PlayerStates.RUN_RIGHT
         this.player = player
     }
 
@@ -65,11 +61,9 @@ export class PlayerRunRight implements State {
 }
 
 export class PlayerRunLeft implements State {
-    public state: PlayerStates
-    public player: Player
+    private player: Player
 
     constructor(player: Player) {
-        this.state = PlayerStates.RUN_LEFT
         this.player = player
     }
 
