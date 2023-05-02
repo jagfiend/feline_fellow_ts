@@ -1,4 +1,8 @@
-# Game sketch
+# Feline fellow
+
+This is a 2D TypeScript game built for my son inspired by his love of a certain 
+feline themed superhero. The design borrows liberally from this [JS gaming tutorial](https://www.youtube.com/watch?v=GFO_txvwK_c)
+but I moved into TypeScript + Vite because that's how we do.
 
 To get started, clone this repo and run:
 
